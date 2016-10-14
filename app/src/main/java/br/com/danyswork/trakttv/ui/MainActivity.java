@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ProgressBar;
 
 import java.util.List;
 
@@ -18,11 +19,13 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
 
-    @Bind(R.id.swipe)
-    SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Bind(R.id.list_movies)
     RecyclerView mRecyclerView;
+
+    @Bind(R.id.progress_bar)
+    ProgressBar mProgressBar;
+
 
     private MoviesAdapter mAdapter;
     private TraktTVPresenter mPresenter;
@@ -45,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void setContent(List<Movies> list){
+        mProgressBar.setVisibility(View.GONE);
         mAdapter.setContent(list);
     }
 
@@ -53,7 +57,10 @@ public class MainActivity extends AppCompatActivity {
             mRecyclerView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
                 @Override
                 public void onScrollChange(View view, int i, int i1, int i2, int i3) {
-                    mSwipeRefreshLayout.setEnabled(layoutParams.findFirstCompletelyVisibleItemPosition() == mAdapter.getItemCount());
+                    if ( layoutParams.findLastCompletelyVisibleItemPosition() == mAdapter.getItemCount()-1 ){
+                        mProgressBar.setVisibility(View.VISIBLE);
+                        mPresenter.getPopularMovies();
+                    }
                 }
             });
         }
