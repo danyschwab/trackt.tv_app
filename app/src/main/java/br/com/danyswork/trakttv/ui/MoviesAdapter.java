@@ -1,5 +1,6 @@
 package br.com.danyswork.trakttv.ui;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,11 +10,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.danyswork.trakttv.R;
+import br.com.danyswork.trakttv.Utils.ImageLoader;
 import br.com.danyswork.trakttv.model.Movies;
 
 class MoviesAdapter extends RecyclerView.Adapter<MovieViewHolder> {
 
     private List<Movies> mList;
+    private ImageLoader mImageLoader;
+
+    public MoviesAdapter(Context context){
+        mImageLoader = new ImageLoader(context);
+    }
 
     void setContent(List<Movies> list) {
         if (this.mList == null) {
@@ -45,6 +52,7 @@ class MoviesAdapter extends RecyclerView.Adapter<MovieViewHolder> {
             holder.mTitle.setText(movie.getTitle());
             holder.mYear.setText(String.valueOf(movie.getYear()));
             holder.mOverview.setText(movie.getOverview());
+            mImageLoader.displayImage(String.valueOf(movie.getIds().getTMDB()), holder.mImage);
         }
     }
 

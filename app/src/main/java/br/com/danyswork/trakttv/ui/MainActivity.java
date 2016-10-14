@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         mPresenter = new TraktTVPresenter(this);
         mPresenter.getPopularMovies();
-        mAdapter = new MoviesAdapter();
+        mAdapter = new MoviesAdapter(this);
 
         LinearLayoutManager layoutParams = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(layoutParams);

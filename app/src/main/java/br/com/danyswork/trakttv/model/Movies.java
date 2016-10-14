@@ -32,4 +32,8 @@ public class Movies {
     public String getOverview() {
         return overview;
     }
+
+    public Ids getIds() {
+        return ids;
+    }
 }

@@ -6,4 +6,8 @@ public class Ids {
     private String slug;
     private String imdb;
     private int tmdb;
+
+    public int getTMDB() {
+        return tmdb;
+    }
 }

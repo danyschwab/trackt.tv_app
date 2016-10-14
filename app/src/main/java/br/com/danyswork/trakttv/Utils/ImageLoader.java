@@ -46,8 +46,8 @@ public class ImageLoader {
     }
 
     private void queuePhoto(String flagName, ImageView imageView) {
-        PhotoToLoad p = new PhotoToLoad(flagName, imageView);
-        executorService.submit(new PhotosLoader(p));
+        PictureToLoad p = new PictureToLoad(flagName, imageView);
+        executorService.submit(new PictureLoader(p));
     }
 
     private Bitmap getBitmap(String fileName) {
@@ -70,56 +70,56 @@ public class ImageLoader {
 
 
     //Task for the queue
-    private class PhotoToLoad {
+    private class PictureToLoad {
         public String flagName;
         public ImageView imageView;
 
-        public PhotoToLoad(String f, ImageView i) {
+        public PictureToLoad(String f, ImageView i) {
             flagName = f;
             imageView = i;
         }
     }
 
-    class PhotosLoader implements Runnable {
-        PhotoToLoad photoToLoad;
+    class PictureLoader implements Runnable {
+        PictureToLoad pictureToLoad;
 
-        PhotosLoader(PhotoToLoad photoToLoad) {
-            this.photoToLoad = photoToLoad;
+        PictureLoader(PictureToLoad pictureToLoad) {
+            this.pictureToLoad = pictureToLoad;
         }
 
         @Override
         public void run() {
-            BitmapDisplay bd = new BitmapDisplay(getBitmap(photoToLoad.flagName), photoToLoad);
-            Activity a = (Activity) photoToLoad.imageView.getContext();
+            BitmapDisplay bd = new BitmapDisplay(getBitmap(pictureToLoad.flagName), pictureToLoad);
+            Activity a = (Activity) pictureToLoad.imageView.getContext();
             a.runOnUiThread(bd);
         }
     }
 
-    boolean imageViewReused(PhotoToLoad photoToLoad) {
-        String tag = imageViews.get(photoToLoad.imageView);
-        return tag != null && tag.equals(photoToLoad.flagName);
+    boolean imageViewReused(PictureToLoad pictureToLoad) {
+        String tag = imageViews.get(pictureToLoad.imageView);
+        return tag != null && tag.equals(pictureToLoad.flagName);
     }
 
     //Used to display bitmap in the UI thread
     class BitmapDisplay implements Runnable {
 
         Bitmap bitmap;
-        PhotoToLoad photoToLoad;
+        PictureToLoad pictureToLoad;
 
-        public BitmapDisplay(Bitmap b, PhotoToLoad p) {
+        public BitmapDisplay(Bitmap b, PictureToLoad p) {
             bitmap = b;
-            photoToLoad = p;
+            pictureToLoad = p;
         }
 
         public void run() {
-            if (!imageViewReused(photoToLoad)) {
+            if (!imageViewReused(pictureToLoad)) {
                 return;
             }
 
             if (bitmap != null) {
-                photoToLoad.imageView.setImageBitmap(bitmap);
+                pictureToLoad.imageView.setImageBitmap(bitmap);
             } else {
-                photoToLoad.imageView.setImageResource(STUB_ID);
+                pictureToLoad.imageView.setImageResource(STUB_ID);
             }
         }
     }
