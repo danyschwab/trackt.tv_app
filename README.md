@@ -1,2 +1,2 @@
-# trackt.tv_app
+# trakt.tv_app
 Application that connects to Trakt.tv.
