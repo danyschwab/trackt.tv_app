@@ -19,6 +19,7 @@ public class Repository {
     private String getMostPopularURL(int page, int limit) {
         URLBuilder urlBuilder = getURLBase();
         urlBuilder.addPath(Constants.POPULAR);
+        urlBuilder.addQueryParameter(Constants.EXTENDED, Constants.FULL);
         urlBuilder.addQueryParameter(Constants.PAGE, page);
         urlBuilder.addQueryParameter(Constants.LIMIT, limit);
         return urlBuilder.build();

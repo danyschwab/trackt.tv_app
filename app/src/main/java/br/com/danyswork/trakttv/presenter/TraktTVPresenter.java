@@ -2,6 +2,10 @@ package br.com.danyswork.trakttv.presenter;
 
 import com.android.volley.VolleyError;
 
+import java.util.List;
+
+import br.com.danyswork.trakttv.model.Movies;
+import br.com.danyswork.trakttv.request.GsonUtils;
 import br.com.danyswork.trakttv.request.Repository;
 import br.com.danyswork.trakttv.request.ResponseListener;
 import br.com.danyswork.trakttv.ui.MainActivity;
@@ -24,12 +28,13 @@ public class TraktTVPresenter {
             @Override
             public void onResponse(String response) {
                 ++page;
-                mActivity.setText(response);
+                List<Movies> list = GsonUtils.fromJsonList(response, Movies.class);
+                mActivity.setContent(list);
             }
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                mActivity.setText(error.getMessage());
+                //TODO Error dialog
             }
         });
     }
