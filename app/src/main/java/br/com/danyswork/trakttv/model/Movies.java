@@ -28,4 +28,8 @@ public class Movies {
     public int getYear() {
         return year;
     }
+
+    public String getOverview() {
+        return overview;
+    }
 }

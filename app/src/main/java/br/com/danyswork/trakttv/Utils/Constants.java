@@ -11,4 +11,5 @@ public class Constants {
     public static final String LIMIT = "limit";
     public static final String EXTENDED = "extended";
     public static final String FULL = "full";
+    public static final String IMAGE_LOADER_URL = "https://image.tmdb.org/t/p/w500/";
 }

@@ -44,6 +44,7 @@ class MoviesAdapter extends RecyclerView.Adapter<MovieViewHolder> {
         if (movie != null) {
             holder.mTitle.setText(movie.getTitle());
             holder.mYear.setText(String.valueOf(movie.getYear()));
+            holder.mOverview.setText(movie.getOverview());
         }
     }
 
