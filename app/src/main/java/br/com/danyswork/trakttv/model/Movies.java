@@ -20,6 +20,7 @@ public class Movies {
     private List<String> available_translations;
     private List<String> genres;
     private String certification;
+    private String posterPath;
 
     public String getTitle() {
         return title;
@@ -35,5 +36,13 @@ public class Movies {
 
     public Ids getIds() {
         return ids;
+    }
+
+    public String getPosterPath() {
+        return posterPath;
+    }
+
+    public void setPosterPath(String posterPath) {
+        this.posterPath = posterPath;
     }
 }

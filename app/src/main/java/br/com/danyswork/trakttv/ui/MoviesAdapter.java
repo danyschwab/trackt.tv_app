@@ -22,14 +22,12 @@ class MoviesAdapter extends RecyclerView.Adapter<MovieViewHolder> {
         mImageLoader = new ImageLoader(context);
     }
 
-    void setContent(List<Movies> list) {
+    void setContent(Movies movie) {
         if (this.mList == null) {
             this.mList = new ArrayList<>();
         }
-        if (list == null || list.isEmpty()) {
-            this.mList.clear();
-        } else {
-            this.mList.addAll(list);
+        if ( movie != null ){
+            this.mList.add(movie);
         }
         notifyDataSetChanged();
     }
@@ -52,7 +50,7 @@ class MoviesAdapter extends RecyclerView.Adapter<MovieViewHolder> {
             holder.mTitle.setText(movie.getTitle());
             holder.mYear.setText(String.valueOf(movie.getYear()));
             holder.mOverview.setText(movie.getOverview());
-            mImageLoader.displayImage(String.valueOf(movie.getIds().getTMDB()), holder.mImage);
+            mImageLoader.displayImage(String.valueOf(movie.getPosterPath()), holder.mImage);
         }
     }
 

@@ -47,9 +47,9 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.setAdapter(mAdapter);
     }
 
-    public void setContent(List<Movies> list){
+    public void setContent(Movies movie){
         mProgressBar.setVisibility(View.GONE);
-        mAdapter.setContent(list);
+        mAdapter.setContent(movie);
     }
 
     private void setupRecyclerScroll(final LinearLayoutManager layoutParams) {

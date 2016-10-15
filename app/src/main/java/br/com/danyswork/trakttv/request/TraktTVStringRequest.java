@@ -12,6 +12,7 @@ import com.android.volley.toolbox.StringRequest;
 import java.util.HashMap;
 import java.util.Map;
 
+import br.com.danyswork.trakttv.BuildConfig;
 import br.com.danyswork.trakttv.Utils.Constants;
 
 class TraktTVStringRequest extends StringRequest {
@@ -41,7 +42,7 @@ class TraktTVStringRequest extends StringRequest {
         //Content-Type
         header.put("Content-Type", Constants.APPLICATION_JSON);
         header.put("trakt-api-version", Constants.TRAKT_API_VERSION);
-        header.put("trakt-api-key", Constants.TRAKT_API_KEY);
+        header.put("trakt-api-key", BuildConfig.TRAKT_API_KEY);
 
         return header;
     }

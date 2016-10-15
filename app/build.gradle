@@ -10,6 +10,10 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        Properties props = new Properties()
+        props.load(new FileInputStream('api_key.properties'))
+        buildConfigField 'String', 'TRAKT_API_KEY', "${props.getProperty('TRAKT_API_KEY')}"
+        buildConfigField 'String', 'TMDB_API_KEY', "${props.getProperty('TMDB_API_KEY')}"
     }
     buildTypes {
         release {
