@@ -19,6 +19,8 @@
             android:layout_width="100dp"
             android:layout_height="150dp"
             android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/poster_margin"
+            android:layout_marginEnd="@dimen/poster_margin"
             android:src="@mipmap/boldee_icons" />
 
         <TextView
