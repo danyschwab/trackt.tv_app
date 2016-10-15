@@ -45,21 +45,20 @@ public class ImageLoader {
         }
     }
 
-    private void queuePhoto(String flagName, ImageView imageView) {
-        PictureToLoad p = new PictureToLoad(flagName, imageView);
+    private void queuePhoto(String fileName, ImageView imageView) {
+        PictureToLoad p = new PictureToLoad(fileName, imageView);
         executorService.submit(new PictureLoader(p));
     }
 
     private Bitmap getBitmap(String fileName) {
         try {
-            String filename = fileName.concat(".png");
-            String src = Constants.IMAGE_LOADER_URL + filename;
+            String src = Constants.IMAGE_LOADER_URL + fileName;
             java.net.URL url = new java.net.URL(src);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setDoInput(true);
             connection.connect();
             InputStream input = connection.getInputStream();
-            File destFile = new File(mContext.getFilesDir(), filename);
+            File destFile = new File(mContext.getFilesDir(), fileName);
             OutputStream os = new FileOutputStream(destFile);
             Utils.CopyStream(input, os);
             return Utils.getResId(mContext, fileName);
@@ -71,11 +70,11 @@ public class ImageLoader {
 
     //Task for the queue
     private class PictureToLoad {
-        public String flagName;
+        public String fileName;
         public ImageView imageView;
 
         public PictureToLoad(String f, ImageView i) {
-            flagName = f;
+            fileName = f;
             imageView = i;
         }
     }
@@ -89,7 +88,7 @@ public class ImageLoader {
 
         @Override
         public void run() {
-            BitmapDisplay bd = new BitmapDisplay(getBitmap(pictureToLoad.flagName), pictureToLoad);
+            BitmapDisplay bd = new BitmapDisplay(getBitmap(pictureToLoad.fileName), pictureToLoad);
             Activity a = (Activity) pictureToLoad.imageView.getContext();
             a.runOnUiThread(bd);
         }
@@ -97,7 +96,7 @@ public class ImageLoader {
 
     boolean imageViewReused(PictureToLoad pictureToLoad) {
         String tag = imageViews.get(pictureToLoad.imageView);
-        return tag != null && tag.equals(pictureToLoad.flagName);
+        return tag != null && tag.equals(pictureToLoad.fileName);
     }
 
     //Used to display bitmap in the UI thread

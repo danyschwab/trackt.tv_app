@@ -18,17 +18,16 @@ public class Utils {
         return context.getResources().getIdentifier(resName, defType, defPackage);
     }
 
-    public static Bitmap getResId(Context context, String flagName) {
-        Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), Utils.getResourceId(context, flagName, "drawable", context.getPackageName()));
+    public static Bitmap getResId(Context context, String fileName) {
+        Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), Utils.getResourceId(context, fileName, "drawable", context.getPackageName()));
 
         if (bitmap != null) {
             return bitmap;
         }
 
-        String filename = flagName.concat(".png");
         // I identify images by hashcode. Not a perfect solution, good for the
         // demo.
-        File f = new File(context.getFilesDir(), filename);
+        File f = new File(context.getFilesDir(), fileName);
 
         // from SD cache
         return decodeFile(f);
