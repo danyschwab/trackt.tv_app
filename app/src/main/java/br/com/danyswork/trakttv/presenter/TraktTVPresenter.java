@@ -44,7 +44,7 @@ public class TraktTVPresenter {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e("TraktTV", error.getMessage());
+                Log.e("TraktTV","erro");
             }
         });
     }
@@ -61,7 +61,7 @@ public class TraktTVPresenter {
 
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Log.e("TraktTV", error.getMessage());
+                    Log.e("TraktTV", "Erro");
                 }
             });
         }
@@ -86,7 +86,7 @@ public class TraktTVPresenter {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e("TraktTV", error.getMessage());
+                Log.e("TraktTV", "Error");
             }
         });
     }

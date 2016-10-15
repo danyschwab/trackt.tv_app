@@ -46,12 +46,13 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.setAdapter(mAdapter);
     }
 
-    private void setup(){
+    private void setup() {
         LinearLayoutManager layoutParams = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(layoutParams);
 
         setupRecyclerScroll(layoutParams);
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -64,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextSubmit(String s) {
                 mPresenter.cancelSearch();
+                mProgressBar.setVisibility(View.VISIBLE);
                 mPresenter.search(s);
                 mAdapter.clearContent();
                 setup();
@@ -76,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
             public boolean onQueryTextChange(String s) {
                 if (!TextUtils.isEmpty(s)) {
                     mPresenter.cancelSearch();
+                    mProgressBar.setVisibility(View.VISIBLE);
                     mPresenter.search(s);
                     mAdapter.clearContent();
                     setup();
@@ -100,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
             mRecyclerView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
                 @Override
                 public void onScrollChange(View view, int i, int i1, int i2, int i3) {
-                    if (layoutParams.findLastVisibleItemPosition() == mAdapter.getItemCount()-1 ) {
+                    if (layoutParams.findLastVisibleItemPosition() == mAdapter.getItemCount() - 1) {
                         mProgressBar.setVisibility(View.VISIBLE);
                         if (mIsSearch) {
                             mPresenter.search(mSearch);
