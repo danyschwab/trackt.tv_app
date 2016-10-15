@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import br.com.danyswork.trakttv.BuildConfig;
-import br.com.danyswork.trakttv.Utils.Constants;
+import br.com.danyswork.trakttv.util.Constants;
 
 class TraktTVStringRequest extends StringRequest {
 
@@ -23,10 +23,12 @@ class TraktTVStringRequest extends StringRequest {
 
     TraktTVStringRequest(int method, String url, Response.Listener<String> listener, Response.ErrorListener errorListener) {
         super(method, url, listener, errorListener);
+        this.setTag("Trakt");
     }
 
     TraktTVStringRequest(int method, String url, ResponseListener listener) {
         super(method, url, listener, listener);
+        this.setTag("Trakt");
     }
 
 

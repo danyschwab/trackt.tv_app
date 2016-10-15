@@ -1,4 +1,4 @@
-package br.com.danyswork.trakttv.Utils;
+package br.com.danyswork.trakttv.util;
 
 import android.content.Context;
 import android.graphics.Bitmap;

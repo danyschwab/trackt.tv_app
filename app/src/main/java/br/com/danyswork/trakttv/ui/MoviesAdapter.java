@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.danyswork.trakttv.R;
-import br.com.danyswork.trakttv.Utils.ImageLoader;
+import br.com.danyswork.trakttv.util.ImageLoader;
 import br.com.danyswork.trakttv.model.Movies;
 
 class MoviesAdapter extends RecyclerView.Adapter<MovieViewHolder> {
@@ -57,5 +57,9 @@ class MoviesAdapter extends RecyclerView.Adapter<MovieViewHolder> {
     @Override
     public int getItemCount() {
         return (mList != null ? mList.size() : 0);
+    }
+
+    void clearContent() {
+        mList.clear();
     }
 }

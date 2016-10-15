@@ -36,4 +36,7 @@ public class TraktTVVolley extends Volley {
         addRequest(new TraktTVStringRequest(method, url, listener));
     }
 
+        public static void cancelAllRequest() {
+            singletonQueue.cancelAll("Trakt");
+        }
 }
