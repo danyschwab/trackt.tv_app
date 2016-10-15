@@ -10,6 +10,7 @@ import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import br.com.danyswork.trakttv.R;
@@ -58,30 +59,27 @@ public class MainActivity extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_main_activity, menu);
 
-        SearchView searchView =
+        final SearchView searchView =
                 (SearchView) menu.findItem(R.id.search).getActionView();
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
-                mPresenter.cancelSearch();
-                mProgressBar.setVisibility(View.VISIBLE);
-                mPresenter.search(s);
-                mAdapter.clearContent();
-                setup();
-                mIsSearch = true;
-                mSearch = s;
-                return true;
+                if (!TextUtils.isEmpty(s)) {
+                    clearContents();
+                    mPresenter.search(s);
+                    mIsSearch = true;
+                    mSearch = s;
+                    return true;
+                }
+                return false;
             }
 
             @Override
             public boolean onQueryTextChange(String s) {
                 if (!TextUtils.isEmpty(s)) {
-                    mPresenter.cancelSearch();
-                    mProgressBar.setVisibility(View.VISIBLE);
+                    clearContents();
                     mPresenter.search(s);
-                    mAdapter.clearContent();
-                    setup();
                     mIsSearch = true;
                     mSearch = s;
                     return true;
@@ -90,7 +88,28 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        ImageView closeButton = (ImageView) searchView.findViewById(R.id.search_close_btn);
+
+        // Set on click listener
+        closeButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                searchView.setQuery("", false);
+                clearContents();
+                mProgressBar.setVisibility(View.GONE);
+//                mPresenter.getPopularMovies();
+            }
+        });
+
         return true;
+    }
+
+    private void clearContents() {
+        mPresenter.cancelSearch();
+        mProgressBar.setVisibility(View.VISIBLE);
+        mAdapter.clearContent();
+        setup();
     }
 
     public void setContent(Movies movie) {

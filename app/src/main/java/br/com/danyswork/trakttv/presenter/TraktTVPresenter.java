@@ -69,7 +69,8 @@ public class TraktTVPresenter {
 
     public void cancelSearch() {
         TraktTVVolley.cancelAllRequest();
-        pageSearch = 0;
+        pageSearch = 1;
+        page = 1;
     }
 
     public void search(String s) {

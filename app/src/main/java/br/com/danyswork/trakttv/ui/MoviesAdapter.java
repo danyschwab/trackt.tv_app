@@ -18,7 +18,7 @@ class MoviesAdapter extends RecyclerView.Adapter<MovieViewHolder> {
     private List<Movies> mList;
     private ImageLoader mImageLoader;
 
-    public MoviesAdapter(Context context){
+    public MoviesAdapter(Context context) {
         mImageLoader = new ImageLoader(context);
     }
 
@@ -26,8 +26,10 @@ class MoviesAdapter extends RecyclerView.Adapter<MovieViewHolder> {
         if (this.mList == null) {
             this.mList = new ArrayList<>();
         }
-        if ( movie != null ){
-            this.mList.add(movie);
+        if (movie != null) {
+            if (!mList.contains(movie)) {
+                this.mList.add(movie);
+            }
         }
         notifyDataSetChanged();
     }
