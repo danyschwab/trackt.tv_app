@@ -2,6 +2,7 @@ package br.com.danyswork.trakttv.ui;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -9,6 +10,7 @@ import android.support.v7.widget.SearchView;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -59,8 +61,10 @@ public class MainActivity extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_main_activity, menu);
 
+        MenuItem item = menu.findItem(R.id.search);
+
         final SearchView searchView =
-                (SearchView) menu.findItem(R.id.search).getActionView();
+                (SearchView) item.getActionView();
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -98,7 +102,23 @@ public class MainActivity extends AppCompatActivity {
                 searchView.setQuery("", false);
                 clearContents();
                 mProgressBar.setVisibility(View.GONE);
-//                mPresenter.getPopularMovies();
+            }
+        });
+
+        MenuItemCompat.setOnActionExpandListener(item, new MenuItemCompat.OnActionExpandListener() {
+            @Override
+            public boolean onMenuItemActionCollapse(MenuItem item) {
+                searchView.setQuery("", false);
+                clearContents();
+                mProgressBar.setVisibility(View.VISIBLE);
+                mPresenter.getPopularMovies();
+                return true;  // Return true to collapse action view
+            }
+
+            @Override
+            public boolean onMenuItemActionExpand(MenuItem item) {
+                // Do something when expanded
+                return true;  // Return true to expand action view
             }
         });
 

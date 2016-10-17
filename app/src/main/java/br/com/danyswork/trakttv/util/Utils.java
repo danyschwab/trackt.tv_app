@@ -11,14 +11,14 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-public class Utils {
+class Utils {
 
     @IdRes
     private static int getResourceId(Context context, String resName, String defType, String defPackage) {
         return context.getResources().getIdentifier(resName, defType, defPackage);
     }
 
-    public static Bitmap getResId(Context context, String fileName) {
+    static Bitmap getResId(Context context, String fileName) {
         Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), Utils.getResourceId(context, fileName, "drawable", context.getPackageName()));
 
         if (bitmap != null) {
@@ -65,7 +65,7 @@ public class Utils {
         return bitmap;
     }
 
-    public static void CopyStream(InputStream is, OutputStream os) {
+    static void CopyStream(InputStream is, OutputStream os) {
         final int buffer_size = 1024;
         try {
             byte[] bytes = new byte[buffer_size];
