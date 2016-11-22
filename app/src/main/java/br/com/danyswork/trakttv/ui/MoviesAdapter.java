@@ -6,20 +6,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import br.com.danyswork.trakttv.R;
-import br.com.danyswork.trakttv.util.ImageLoader;
 import br.com.danyswork.trakttv.model.Movies;
+import br.com.danyswork.trakttv.util.Constants;
 
 class MoviesAdapter extends RecyclerView.Adapter<MovieViewHolder> {
 
     private List<Movies> mList;
-    private ImageLoader mImageLoader;
+    private Context mContext;
 
-    public MoviesAdapter(Context context) {
-        mImageLoader = new ImageLoader(context);
+    MoviesAdapter(Context context) {
+        mContext = context;
     }
 
     void setContent(Movies movie) {
@@ -52,7 +54,11 @@ class MoviesAdapter extends RecyclerView.Adapter<MovieViewHolder> {
             holder.mTitle.setText(movie.getTitle());
             holder.mYear.setText(String.valueOf(movie.getYear()));
             holder.mOverview.setText(movie.getOverview());
-            mImageLoader.displayImage(String.valueOf(movie.getPosterPath()), holder.mImage);
+
+            Picasso.with(mContext)
+                    .load(Constants.IMAGE_LOADER_URL + movie.getPosterPath())
+                    .placeholder(R.mipmap.boldee_icons)
+                    .into(holder.mImage);
         }
     }
 

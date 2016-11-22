@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:animateLayoutChanges="true"
-    android:gravity="center_horizontal"
     card_view:cardCornerRadius="2dp"
     card_view:cardUseCompatPadding="true">
 
